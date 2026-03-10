@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assunção de Serviço</title>
+
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--card);
+            padding: 2rem;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 10px;
+            align-items: end;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            transition: all 0.3s;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .viatura-input {
+            display: flex;
+            align-items: center;
+            background: #e2e8f0;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .viatura-input span {
+            padding: 0 12px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .viatura-input input {
+            border: none;
+            flex-grow: 1;
+            border-radius: 0 6px 6px 0;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background: var(--secondary);
+        }
+
+        #resultado-container {
+            margin-top: 20px;
+            display: none;
+        }
+
+        #resultado {
+            white-space: pre-line;
+            background: #f1f5f9;
+            padding: 15px;
+            border-left: 5px solid var(--primary);
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .btn-copy { background: #10b981; }
+        .btn-whats { background: #25D366; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🚔 Assunção de Serviço</h2>
+
+    <!-- MESA -->
+    <label>Na Mesa</label>
+    <div class="row">
+        <select id="gradMesa">
+            <option value="Sd PM">Soldado</option>
+            <option value="Cb PM">Cabo</option>
+            <option value="3º Sgt PM">3º Sargento</option>
+            <option value="2º Sgt PM">2º Sargento</option>
+            <option value="1º Sgt PM">1º Sargento</option>
+            <option value="Sub-Ten PM">Sub-Tenente</option>
+        </select>
+        <input type="text" id="nomeMesa" placeholder="Nome" oninput="formatarNome(this)">
+    </div>
+
+    <hr>
+
+    <script>
+        function formatarNome(input) {
+            let valor = input.value.toLowerCase();
+            input.value = valor.replace(/\b\w/g, l => l.toUpperCase());
+        }
+
+        function toggleManual(selectId, inputId) {
+            const select = document.getElementById(selectId);
+            const input = document.getElementById(inputId);
+            input.style.display = select.value === "MANUAL" ? "block" : "none";
+        }
+
+        function coletarPoliciais(grupo) {
+            let lista = [];
+            for (let i = 1; i <= 3; i++) {
+                const grad = document.getElementById(`grad${grupo}_${i}`).value;
+                const nome = document.getElementById(`nome${grupo}_${i}`).value.trim();
+                if (nome !== "") lista.push(`${grad} ${nome}`);
+            }
+            return lista.join(" / ");
+        }
+    </script>
+
+    <!-- 3 BLOCOS DE GUARNIÇÃO (SEM TÍTULO) -->
+
+    <!-- BLOCO 1 -->
+    <label>Viatura</label>
+    <div class="viatura-input">
+        <span>PM-</span>
+        <input type="text" id="vtr1" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+    </div>
+
+    <label>Policiais</label>
+    <div class="row">
+        <select id="grad1_1">
+            <option value="Sd PM">Soldado</option>
+            <option value="Cb PM">Cabo</option>
+            <option value="3º Sgt PM">3º Sargento</option>
+            <option value="2º Sgt PM">2º Sargento</option>
+            <option value="1º Sgt PM">1º Sargento</option>
+            <option value="Sub-Ten PM">Sub-Tenente</option>
+        </select>
+        <input type="text" id="nome1_1" placeholder="Nome" oninput="formatarNome(this)">
+    </div>
+
+    <div class="row">
+        <select id="grad1_2">
+            <option value="Sd PM">Soldado</option>
+            <option value="Cb PM">Cabo</option>
+            <option value="3º Sgt PM">3º Sargento</option>
+            <option value="2º Sgt PM">2º Sargento</option>
+            <option value="1º Sgt PM">1º Sargento</option>
+            <option value="Sub-Ten PM">Sub-Tenente</option>
+        </select>
+        <input type="text" id="nome1_2" placeholder="Nome" oninput="formatarNome(this)">
+    </div>
+
+    <div class="row">
+        <select id="grad1_3">
+            <option value="Sd PM">Soldado</option>
+            <option value="Cb PM">Cabo</option>
+            <option value="3º Sgt PM">3º Sargento</option>
+            <option value="2º Sgt PM">2º Sargento</option>
+            <option value="1º Sgt PM">1º Sargento</option>
+            <option value="Sub-Ten PM">Sub-Tenente</option>
+        </select>
+        <input type="text" id="nome1_3" placeholder="Nome" oninput="formatarNome(this)">
+    </div>
+
+    <label>Horário</label>
+    <select id="hor1" onchange="toggleManual('hor1','hor1Manual')">
+        <option value="07h às 07h">07h às 07h (24h)</option>
+        <option value="07h às 19h">07h às 19h</option>
+        <option value="13h às 01h">13h às 01h</option>
+        <option value="MANUAL">Inserir manualmente</option>
+    </select>
+    <input type="text" id="hor1Manual" style="display:none">
+
+    <label>Local</label>
+    <select id="loc1" onchange="toggleManual('loc1','loc1Manual')">
+        <option value="P19">P19</option>
+        <option value="Área Central / Pontes">Área Central / Pontes</option>
+        <option value="Evento / Apoio P19">Evento / Apoio P19</option>
+        <option value="Futebol">Futebol</option>
+        <option value="MANUAL">Inserir manualmente</option>
+    </select>
+    <input type="text" id="loc1Manual" style="display:none">
+
+    <hr>
+
+    <!-- BLOCO 2 -->
+    <label>Viatura</label>
+    <div class="viatura-input">
+        <span>PM-</span>
+        <input type="text" id="vtr2" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+    </div>
+
+    <label>Policiais</label>
+    <div class="row">
+        <select id="grad2_1">
+            <option value="Sd PM">Soldado</option>
+            <option value="Cb PM">Cabo</option>
+            <option value="3º Sgt PM">3º Sargento</option>
+            <option value="2º Sgt PM">2º Sargento</option>
+            <option value="1º Sgt PM">1º Sargento</option>
+            <option value="Sub-Ten PM">Sub-Tenente</option>
+        </select>
+        <input type="text" id="nome2_1" placeholder="Nome" oninput="formatarNome(this)">
+    </div>
+
+    <div class="row">
+        <select id="grad2_2">
+            <option value="Sd PM">Soldado</option>
+            <option value="Cb PM">Cabo</option>
+            <option value="3º Sgt PM">3º Sargento</option>
+            <option value="2º Sgt PM">2º Sargento</option>
+            <option value="1º Sgt PM">1º Sargento</option>
+            <option value="Sub-Ten PM">Sub-Tenente</option>
+        </select>
+        <input type="text" id="nome2_2" placeholder="Nome" oninput="formatarNome(this)">
+    </div>
+
+    <div class="row">
+        <select id="grad2_3">
+            <option value="Sd PM">Soldado</option>
+            <option value="Cb PM">Cabo</option>
+            <option value="3º Sgt PM">3º Sargento</option>
+            <option value="2º Sgt PM">2º Sargento</option>
+            <option value="1º Sgt PM">1º Sargento</option>
+            <option value="Sub-Ten PM">Sub-Tenente</option>
+        </select>
+        <input type="text" id="nome2_3" placeholder="Nome" oninput="formatarNome(this)">
+    </div>
+
+    <label>Horário</label>
+    <select id="hor2" onchange="toggleManual('hor2','hor2Manual')">
+        <option value="07h às 07h">07h às 07h (24h)</option>
+        <option value="07h às 19h">07h às 19h</option>
+        <option value="13h às 01h">13h às 01h</option>
+        <option value="MANUAL">Inserir manualmente</option>
+    </select>
+    <input type="text" id="hor2Manual" style="display:none">
+
+    <label>Local</label>
+    <select id="loc2" onchange="toggleManual('loc2','loc2Manual')">
+        <option value="P19">P19</option>
+        <option value="Área Central / Pontes">Área Central / Pontes</option>
+        <option value="Evento / Apoio P19">Evento / Apoio P19</option>
+        <option value="Futebol">Futebol</option>
+        <option value="MANUAL">Inserir manualmente</option>
+    </select>
+    <input type="text" id="loc2Manual" style="display:none">
+
+    <hr>
+
+    <!-- BLOCO 3 -->
+    <label>Viatura</label>
+    <div class="viatura-input">
+        <span>PM-</span>
+        <input type="text" id="vtr3" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+    </div>
+
+    <label>Policiais</label>
+    <div class="row">
+        <select id="grad3_1">
+            <option value="Sd PM">Soldado</option>
+            <option value="Cb PM">Cabo</option>
+            <option value="3º Sgt PM">3º Sargento</option>
+            <option value="2º Sgt PM">2º Sargento</option>
+            <option value="1º Sgt PM">1º Sargento</option>
+            <option value="Sub-Ten PM">Sub-Tenente</option>
+        </select>
+        <input type="text" id="nome3_1" placeholder="Nome" oninput="formatarNome(this)">
+    </div>
+
+    <div class="row">
+        <select id="grad3_2">
+            <option value="Sd PM">Soldado</option>
+            <option value="Cb PM">Cabo</option>
+            <option value="3º Sgt PM">3º Sargento</option>
+            <option value="2º Sgt PM">2º Sargento</option>
+            <option value="1º Sgt PM">1º Sargento</option>
+            <option value="Sub-Ten PM">Sub-Tenente</option>
+        </select>
+        <input type="text" id="nome3_2" placeholder="Nome" oninput="formatarNome(this)">
+    </div>
+
+    <div class="row">
+        <select id="grad3_3">
+            <option value="Sd PM">Soldado</option>
+            <option value="Cb PM">Cabo</option>
+            <option value="3º Sgt PM">3º Sargento</option>
+            <option value="2º Sgt PM">2º Sargento</option>
+            <option value="1º Sgt PM">1º Sargento</option>
+            <option value="Sub-Ten PM">Sub-Tenente</option>
+        </select>
+        <input type="text" id="nome3_3" placeholder="Nome" oninput="formatarNome(this)">
+    </div>
+
+    <label>Horário</label>
+    <select id="hor3" onchange="toggleManual('hor3','hor3Manual')">
+        <option value="07h às 07h">07h às 07h (24h)</option>
+        <option value="07h às 19h">07h às 19h</option>
+        <option value="13h às 01h">13h às 01h</option>
+        <option value="MANUAL">Inserir manualmente</option>
+    </select>
+    <input type="text" id="hor3Manual" style="display:none">
+
+    <label>Local</label>
+    <select id="loc3" onchange="toggleManual('loc3','loc3Manual')">
+        <option value="P19">P19</option>
+        <option value="Área Central / Pontes">Área Central / Pontes</option>
+        <option value="Evento / Apoio P19">Evento / Apoio P19</option>
+        <option value="Futebol">Futebol</option>
+        <option value="MANUAL">Inserir manualmente</option>
+    </select>
+    <input type="text" id="loc3Manual" style="display:none">
+
+    <button onclick="gerar()">⚡ GERAR TEXTO</button>
+
+    <div id="resultado-container">
+        <div id="resultado"></div>
+        <button class="btn-copy" onclick="copiar()">📋 COPIAR TEXTO</button>
+        <button class="btn-whats" onclick="whatsapp()">📲 ENVIAR PELO WHATSAPP</button>
+    </div>
+
+</div>
+
+<script>
+function gerar() {
+    const hora = new Date().getHours();
+    let saudacao = "🌙 Boa noite";
+    if (hora >= 5 && hora < 12) saudacao = "☀️ Bom dia";
+    else if (hora >= 12 && hora < 18) saudacao = "🌤️ Boa tarde";
+
+    const mesa = `${document.getElementById("gradMesa").value} ${document.getElementById("nomeMesa").value}`;
+
+    function dadosBloco(n) {
+        let vtr = document.getElementById(`vtr${n}`).value;
+        if (vtr) vtr = `PM-${vtr}`;
+
+        let hor = document.getElementById(`hor${n}`).value;
+        if (hor === "MANUAL") hor = document.getElementById(`hor${n}Manual`).value;
+
+        let loc = document.getElementById(`loc${n}`).value;
+        if (loc === "MANUAL") loc = document.getElementById(`loc${n}Manual`).value;
+
+        const policiais = coletarPol
