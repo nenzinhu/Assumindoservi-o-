@@ -1,400 +1,599 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assunção de Serviço</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Assunção de Serviço — Compacto</title>
 
-    <style>
-        :root {
-            --primary: #1e3a8a;
-            --secondary: #3b82f6;
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text: #1e293b;
-        }
+  <style>
+    :root{
+      --bg: #0b1220;
+      --bg2:#0f172a;
+      --card: rgba(255,255,255,0.08);
+      --card2: rgba(255,255,255,0.10);
+      --border: rgba(255,255,255,0.14);
+      --text: #e5e7eb;
+      --muted: rgba(229,231,235,0.72);
 
-        body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
+      --primary:#60a5fa;
+      --primary2:#2563eb;
+      --success:#10b981;
+      --whats:#25D366;
 
-        .container {
-            background: var(--card);
-            padding: 2rem;
-            width: 100%;
-            max-width: 600px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
+      --radius:16px;
+      --radius2:12px;
+      --shadow: 0 18px 60px rgba(0,0,0,0.35);
+      --shadow2: 0 10px 26px rgba(0,0,0,0.22);
 
-        h2 {
-            text-align: center;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-            text-transform: uppercase;
-        }
+      --field: rgba(255,255,255,0.10);
+      --field2: rgba(255,255,255,0.14);
+    }
 
-        label {
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-            color: #64748b;
-            text-transform: uppercase;
-        }
+    *{box-sizing:border-box}
+    html,body{height:100%}
 
-        .row {
-            display: grid;
-            grid-template-columns: 140px 1fr;
-            gap: 10px;
-            align-items: end;
-            margin-bottom: 5px;
-        }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(96,165,250,0.22), transparent 60%),
+        radial-gradient(900px 500px at 85% 25%, rgba(16,185,129,0.18), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: clamp(14px, 2vw, 22px);
+    }
 
-        input, select {
-            padding: 10px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            transition: all 0.3s;
-            outline: none;
-            font-size: 0.9rem;
-        }
+    .wrap{
+      width:min(980px, 100%);
+      margin-inline:auto;
+    }
 
-        input:focus, select:focus {
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
+    .card{
+      background: linear-gradient(180deg, var(--card2), var(--card));
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding: clamp(14px, 2.2vw, 20px);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
 
-        .viatura-input {
-            display: flex;
-            align-items: center;
-            background: #e2e8f0;
-            border-radius: 8px;
-            border: 2px solid #e2e8f0;
-        }
+    header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      padding-bottom:6px;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
 
-        .viatura-input span {
-            padding: 0 12px;
-            font-weight: bold;
-            color: var(--primary);
-        }
+    .title{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
 
-        .viatura-input input {
-            border: none;
-            flex-grow: 1;
-            border-radius: 0 6px 6px 0;
-        }
+    header h1{
+      margin:0;
+      font-size: 14px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      color: var(--primary);
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
 
-        button {
-            margin-top: 15px;
-            padding: 14px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
-            text-transform: uppercase;
-        }
+    header p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
 
-        button:hover {
-            background: var(--secondary);
-        }
+    .badge{
+      align-self:flex-start;
+      font-size:12px;
+      color: rgba(229,231,235,0.78);
+      background: rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.10);
+      padding: 8px 10px;
+      border-radius: 999px;
+      box-shadow: var(--shadow2);
+      white-space: nowrap;
+    }
 
-        #resultado-container {
-            margin-top: 20px;
-            display: none;
-        }
+    /* Layout grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
 
-        #resultado {
-            white-space: pre-line;
-            background: #f1f5f9;
-            padding: 15px;
-            border-left: 5px solid var(--primary);
-            border-radius: 4px;
-            font-family: monospace;
-        }
+    .block{
+      grid-column: span 4;
+      padding: 12px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.06);
+      box-shadow: var(--shadow2);
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      min-width: 0;
+    }
 
-        .btn-copy { background: #10b981; }
-        .btn-whats { background: #25D366; }
-    </style>
+    .block.full{ grid-column: 1 / -1; }
+
+    .block-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .block-title h3{
+      margin:0;
+      font-size: 14px;
+      color: rgba(229,231,235,0.96);
+    }
+
+    .muted{ color: var(--muted); font-size: 12px; }
+
+    label{
+      display:block;
+      font-size: 11px;
+      color: rgba(229,231,235,0.70);
+      font-weight: 800;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    input[type="text"], select{
+      width:100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border:1px solid rgba(255,255,255,0.12);
+      background: var(--field);
+      color: var(--text);
+      outline: none;
+      font-size: 13px;
+      transition: .18s ease;
+      min-height: 40px;
+    }
+
+    input[type="text"]::placeholder{ color: rgba(229,231,235,0.45); }
+
+    input[type="text"]:hover, select:hover{
+      border-color: rgba(96,165,250,0.32);
+      background: var(--field2);
+    }
+
+    input[type="text"]:focus-visible, select:focus-visible{
+      border-color: rgba(96,165,250,0.65);
+      box-shadow: 0 0 0 3px rgba(96,165,250,0.20);
+      background: var(--field2);
+    }
+
+    .small{ font-size: 13px; padding: 10px 12px; }
+
+    .viatura-row{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+    }
+
+    .prefix{
+      background: rgba(96,165,250,0.16);
+      border: 1px solid rgba(96,165,250,0.28);
+      padding: 9px 10px;
+      border-radius: 10px;
+      font-weight: 900;
+      color: var(--primary);
+      min-height: 40px;
+      display:flex;
+      align-items:center;
+    }
+
+    .inline{
+      display:flex;
+      gap:10px;
+      align-items:flex-end;
+      flex-wrap: wrap;
+    }
+
+    .inline .col{
+      flex:1;
+      min-width: 160px;
+    }
+
+    .actions{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 2px;
+    }
+
+    .btn{
+      padding: 11px 12px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,0.14);
+      color:#06111f;
+      font-weight: 900;
+      cursor:pointer;
+      transition: transform .10s ease, filter .18s ease, box-shadow .18s ease;
+      box-shadow: var(--shadow2);
+      user-select:none;
+      min-height: 44px;
+    }
+
+    .btn:hover{ filter: brightness(1.05); transform: translateY(-1px); }
+    .btn:active{ transform: translateY(0px) scale(0.99); }
+
+    .btn-primary{ background: linear-gradient(180deg, var(--primary), var(--primary2)); }
+    .btn-copy{ background: linear-gradient(180deg, #34d399, var(--success)); }
+    .btn-whats{ background: linear-gradient(180deg, #5df08f, var(--whats)); }
+
+    .result{
+      margin-top: 10px;
+      display:none;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 12px;
+      border-left: 4px solid var(--primary);
+      border-radius: 12px;
+      white-space: pre-line;
+      font-size: 13px;
+      line-height: 1.4;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    /* Responsivo */
+    @media (max-width: 980px){
+      .block{ grid-column: span 6; }
+      .badge{ display:none; }
+    }
+
+    @media (max-width: 640px){
+      body{ align-items:flex-start; }
+      .block{ grid-column: 1 / -1; }
+      header{ flex-direction:column; align-items:flex-start; }
+      .actions{ grid-template-columns: 1fr; }
+      .inline .col{ min-width: 100%; }
+    }
+  </style>
 </head>
+
 <body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <div class="title">
+          <h1>🚔 Assunção de Serviço</h1>
+          <p class="muted">Preencha ao menos Viatura e Policial 1 por viatura</p>
+        </div>
+        <div class="badge">Compacto • Responsivo</div>
+      </header>
 
-<div class="container">
-    <h2>🚔 Assunção de Serviço</h2>
+      <!-- Mesa -->
+      <div class="grid">
+        <div class="block full" style="padding:12px">
+          <div class="block-title">
+            <h3>Na Mesa (opcional)</h3>
+            <div class="muted">Use se necessário</div>
+          </div>
 
-    <!-- MESA -->
-    <label>Na Mesa</label>
-    <div class="row">
-        <select id="gradMesa">
-            <option value="Sd PM">Soldado</option>
-            <option value="Cb PM">Cabo</option>
-            <option value="3º Sgt PM">3º Sargento</option>
-            <option value="2º Sgt PM">2º Sargento</option>
-            <option value="1º Sgt PM">1º Sargento</option>
-            <option value="Sub-Ten PM">Sub-Tenente</option>
-        </select>
-        <input type="text" id="nomeMesa" placeholder="Nome" oninput="formatarNome(this)">
+          <div class="inline" style="width:100%">
+            <div class="col">
+              <label>Posto</label>
+              <select id="gradMesa" class="small">
+                <option value="Sd PM">Sd PM</option><option value="Cb PM">Cb PM</option>
+                <option value="3º Sgt PM">3º Sgt PM</option><option value="2º Sgt PM">2º Sgt PM</option>
+                <option value="1º Sgt PM">1º Sgt PM</option><option value="Sub-Ten PM">Sub-Ten PM</option>
+              </select>
+            </div>
+            <div class="col">
+              <label>Nome</label>
+              <input id="nomeMesa" type="text" placeholder="Nome" oninput="formatarNome(this)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Viaturas -->
+      <div class="grid">
+        <!-- Viatura 1 -->
+        <div class="block">
+          <div class="block-title"><h3>Viatura 1</h3><div class="muted">Principal</div></div>
+
+          <div>
+            <label>Viatura</label>
+            <div class="viatura-row">
+              <div class="prefix">PM-</div>
+              <input id="vtr1" type="text" maxlength="4" placeholder="0001" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+            </div>
+          </div>
+
+          <div>
+            <label>Policial 1</label>
+            <div style="display:flex;gap:10px">
+              <select id="grad1_1" class="small" style="width:38%">
+                <option value="Sd PM">Sd PM</option><option value="Cb PM">Cb PM</option>
+                <option value="3º Sgt PM">3º Sgt</option><option value="2º Sgt PM">2º Sgt</option>
+                <option value="1º Sgt PM">1º Sgt</option><option value="Sub-Ten PM">Sub-Ten</option>
+              </select>
+              <input id="nome1_1" type="text" placeholder="Nome" oninput="formatarNome(this)">
+            </div>
+          </div>
+
+          <div>
+            <label>Policial 2 (opcional)</label>
+            <div style="display:flex;gap:10px">
+              <select id="grad1_2" class="small" style="width:38%">
+                <option value="Sd PM">Sd PM</option><option value="Cb PM">Cb PM</option>
+                <option value="3º Sgt PM">3º Sgt</option><option value="2º Sgt PM">2º Sgt</option>
+                <option value="1º Sgt PM">1º Sgt</option><option value="Sub-Ten PM">Sub-Ten</option>
+              </select>
+              <input id="nome1_2" type="text" placeholder="Nome" oninput="formatarNome(this)">
+            </div>
+          </div>
+
+          <div class="inline">
+            <div class="col">
+              <label>Horário</label>
+              <select id="hor1" class="small">
+                <option>07h às 19h</option><option>19h às 07h</option>
+                <option>13h às 01h</option><option>07h às 07h</option>
+              </select>
+            </div>
+            <div class="col">
+              <label>Local (select)</label>
+              <select id="loc1" class="small">
+                <option>P19</option><option>Ponte</option><option>Viatura de apoio no P19</option>
+                <option>Área Central / Pontes</option><option>Futebol</option>
+              </select>
+            </div>
+            <div class="col" style="min-width:160px">
+              <label>Local manual</label>
+              <input id="loc1Manual" type="text" placeholder="Local (opcional)">
+            </div>
+          </div>
+        </div>
+
+        <!-- Viatura 2 -->
+        <div class="block">
+          <div class="block-title"><h3>Viatura 2</h3><div class="muted">Suporte</div></div>
+
+          <div>
+            <label>Viatura</label>
+            <div class="viatura-row">
+              <div class="prefix">PM-</div>
+              <input id="vtr2" type="text" maxlength="4" placeholder="0002" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+            </div>
+          </div>
+
+          <div>
+            <label>Policial 1</label>
+            <div style="display:flex;gap:10px">
+              <select id="grad2_1" class="small" style="width:38%">
+                <option value="Sd PM">Sd PM</option><option value="Cb PM">Cb PM</option>
+                <option value="3º Sgt PM">3º Sgt</option><option value="2º Sgt PM">2º Sgt</option>
+                <option value="1º Sgt PM">1º Sgt</option><option value="Sub-Ten PM">Sub-Ten</option>
+              </select>
+              <input id="nome2_1" type="text" placeholder="Nome" oninput="formatarNome(this)">
+            </div>
+          </div>
+
+          <div>
+            <label>Policial 2 (opcional)</label>
+            <div style="display:flex;gap:10px">
+              <select id="grad2_2" class="small" style="width:38%">
+                <option value="Sd PM">Sd PM</option><option value="Cb PM">Cb PM</option>
+                <option value="3º Sgt PM">3º Sgt</option><option value="2º Sgt PM">2º Sgt</option>
+                <option value="1º Sgt PM">1º Sgt</option><option value="Sub-Ten PM">Sub-Ten</option>
+              </select>
+              <input id="nome2_2" type="text" placeholder="Nome" oninput="formatarNome(this)">
+            </div>
+          </div>
+
+          <div class="inline">
+            <div class="col">
+              <label>Horário</label>
+              <select id="hor2" class="small">
+                <option>07h às 19h</option><option>19h às 07h</option>
+                <option>13h às 01h</option><option>07h às 07h</option>
+              </select>
+            </div>
+            <div class="col">
+              <label>Local (select)</label>
+              <select id="loc2" class="small">
+                <option>P19</option><option>Ponte</option><option>Viatura de apoio no P19</option>
+                <option>Área Central / Pontes</option><option>Futebol</option>
+              </select>
+            </div>
+            <div class="col" style="min-width:160px">
+              <label>Local manual</label>
+              <input id="loc2Manual" type="text" placeholder="Local (opcional)">
+            </div>
+          </div>
+        </div>
+
+        <!-- Viatura 3 -->
+        <div class="block">
+          <div class="block-title"><h3>Viatura 3</h3><div class="muted">Reserva</div></div>
+
+          <div>
+            <label>Viatura</label>
+            <div class="viatura-row">
+              <div class="prefix">PM-</div>
+              <input id="vtr3" type="text" maxlength="4" placeholder="0003" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+            </div>
+          </div>
+
+          <div>
+            <label>Policial 1</label>
+            <div style="display:flex;gap:10px">
+              <select id="grad3_1" class="small" style="width:38%">
+                <option value="Sd PM">Sd PM</option><option value="Cb PM">Cb PM</option>
+                <option value="3º Sgt PM">3º Sgt</option><option value="2º Sgt PM">2º Sgt</option>
+                <option value="1º Sgt PM">1º Sgt</option><option value="Sub-Ten PM">Sub-Ten</option>
+              </select>
+              <input id="nome3_1" type="text" placeholder="Nome" oninput="formatarNome(this)">
+            </div>
+          </div>
+
+          <div>
+            <label>Policial 2 (opcional)</label>
+            <div style="display:flex;gap:10px">
+              <select id="grad3_2" class="small" style="width:38%">
+                <option value="Sd PM">Sd PM</option><option value="Cb PM">Cb PM</option>
+                <option value="3º Sgt PM">3º Sgt</option><option value="2º Sgt PM">2º Sgt</option>
+                <option value="1º Sgt PM">1º Sgt</option><option value="Sub-Ten PM">Sub-Ten</option>
+              </select>
+              <input id="nome3_2" type="text" placeholder="Nome" oninput="formatarNome(this)">
+            </div>
+          </div>
+
+          <div class="inline">
+            <div class="col">
+              <label>Horário</label>
+              <select id="hor3" class="small">
+                <option>07h às 19h</option><option>19h às 07h</option>
+                <option>13h às 01h</option><option>07h às 07h</option>
+              </select>
+            </div>
+            <div class="col">
+              <label>Local (select)</label>
+              <select id="loc3" class="small">
+                <option>P19</option><option>Ponte</option><option>Viatura de apoio no P19</option>
+                <option>Área Central / Pontes</option><option>Futebol</option>
+              </select>
+            </div>
+            <div class="col" style="min-width:160px">
+              <label>Local manual</label>
+              <input id="loc3Manual" type="text" placeholder="Local (opcional)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ações -->
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="actions">
+          <button class="btn btn-primary" onclick="gerar()">⚡ GERAR TEXTO</button>
+          <button class="btn btn-copy" onclick="copiar()" id="btnCopy">📋 COPIAR</button>
+          <button class="btn btn-whats" onclick="whatsapp()">📲 WHATSAPP</button>
+        </div>
+
+        <div id="resultado" class="result" aria-live="polite"></div>
+      </div>
     </div>
+  </div>
 
-    <hr>
+  <script>
+    // Capitaliza cada palavra
+    function formatarNome(input){
+      let v = input.value.toLowerCase();
+      input.value = v.replace(/\b\w/g, c => c.toUpperCase());
+    }
 
-    <script>
-        function formatarNome(input) {
-            let valor = input.value.toLowerCase();
-            input.value = valor.replace(/\b\w/g, l => l.toUpperCase());
-        }
+    function coletarPol(v){
+      const arr = [];
+      const g1 = document.getElementById(`grad${v}_1`).value;
+      const n1 = document.getElementById(`nome${v}_1`).value.trim();
+      if(n1) arr.push(`${g1} ${n1}`);
+      const g2 = document.getElementById(`grad${v}_2`).value;
+      const n2 = document.getElementById(`nome${v}_2`).value.trim();
+      if(n2) arr.push(`${g2} ${n2}`);
+      return arr;
+    }
 
-        function toggleManual(selectId, inputId) {
-            const select = document.getElementById(selectId);
-            const input = document.getElementById(inputId);
-            input.style.display = select.value === "MANUAL" ? "block" : "none";
-        }
+    function dadosViatura(i){
+      const vtrEl = document.getElementById('vtr' + i);
+      if(!vtrEl) return null;
+      const vtr = vtrEl.value.trim();
+      if(!vtr) return null;
+      const vtrText = `PM-${vtr}`;
+      const horario = document.getElementById('hor' + i).value;
+      const locSelect = document.getElementById('loc' + i).value;
+      const locManual = document.getElementById('loc' + i + 'Manual').value.trim();
+      const local = locManual || locSelect || '';
+      const policiais = coletarPol(i);
+      return { vtrText, horario, local, policiais };
+    }
 
-        function coletarPoliciais(grupo) {
-            let lista = [];
-            for (let i = 1; i <= 3; i++) {
-                const grad = document.getElementById(`grad${grupo}_${i}`).value;
-                const nome = document.getElementById(`nome${grupo}_${i}`).value.trim();
-                if (nome !== "") lista.push(`${grad} ${nome}`);
-            }
-            return lista.join(" / ");
-        }
-    </script>
+    function gerar(){
+      const hora = new Date().getHours();
+      let saudacao = "🌙 Boa noite";
+      if(hora >= 5 && hora < 12) saudacao = "☀️ Bom dia";
+      else if(hora >= 12 && hora < 18) saudacao = "🌤️ Boa tarde";
 
-    <!-- 3 BLOCOS DE GUARNIÇÃO (SEM TÍTULO) -->
+      const mesaPosto = document.getElementById('gradMesa').value;
+      const mesaNome = document.getElementById('nomeMesa').value.trim();
+      const mesa = mesaNome ? `${mesaPosto} ${mesaNome}` : (mesaPosto || '');
 
-    <!-- BLOCO 1 -->
-    <label>Viatura</label>
-    <div class="viatura-input">
-        <span>PM-</span>
-        <input type="text" id="vtr1" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
-    </div>
+      const b1 = dadosViatura(1);
+      const b2 = dadosViatura(2);
+      const b3 = dadosViatura(3);
 
-    <label>Policiais</label>
-    <div class="row">
-        <select id="grad1_1">
-            <option value="Sd PM">Soldado</option>
-            <option value="Cb PM">Cabo</option>
-            <option value="3º Sgt PM">3º Sargento</option>
-            <option value="2º Sgt PM">2º Sargento</option>
-            <option value="1º Sgt PM">1º Sargento</option>
-            <option value="Sub-Ten PM">Sub-Tenente</option>
-        </select>
-        <input type="text" id="nome1_1" placeholder="Nome" oninput="formatarNome(this)">
-    </div>
+      if(!b1 && !b2 && !b3){
+        alert('Preencha ao menos uma viatura com o Policial 1.');
+        return;
+      }
 
-    <div class="row">
-        <select id="grad1_2">
-            <option value="Sd PM">Soldado</option>
-            <option value="Cb PM">Cabo</option>
-            <option value="3º Sgt PM">3º Sargento</option>
-            <option value="2º Sgt PM">2º Sargento</option>
-            <option value="1º Sgt PM">1º Sargento</option>
-            <option value="Sub-Ten PM">Sub-Tenente</option>
-        </select>
-        <input type="text" id="nome1_2" placeholder="Nome" oninput="formatarNome(this)">
-    </div>
+      const problemas = [];
+      [b1,b2,b3].forEach((b, idx) => {
+        if(b && b.policiais.length === 0) problemas.push(`Viatura ${idx+1}: falta pelo menos 1 policial.`);
+      });
+      if(problemas.length){ alert(problemas.join('\n')); return; }
 
-    <div class="row">
-        <select id="grad1_3">
-            <option value="Sd PM">Soldado</option>
-            <option value="Cb PM">Cabo</option>
-            <option value="3º Sgt PM">3º Sargento</option>
-            <option value="2º Sgt PM">2º Sargento</option>
-            <option value="1º Sgt PM">1º Sargento</option>
-            <option value="Sub-Ten PM">Sub-Tenente</option>
-        </select>
-        <input type="text" id="nome1_3" placeholder="Nome" oninput="formatarNome(this)">
-    </div>
+      let texto = `${saudacao}! Guarnição iniciando serviço\n\n`;
+      if(mesa) texto += `🔹 *Na Mesa:* ${mesa}\n\n`;
 
-    <label>Horário</label>
-    <select id="hor1" onchange="toggleManual('hor1','hor1Manual')">
-        <option value="07h às 07h">07h às 07h (24h)</option>
-        <option value="07h às 19h">07h às 19h</option>
-        <option value="13h às 01h">13h às 01h</option>
-        <option value="MANUAL">Inserir manualmente</option>
-    </select>
-    <input type="text" id="hor1Manual" style="display:none">
+      [b1,b2,b3].forEach((b) => {
+        if(!b) return;
+        texto += `🔹 *Viatura:* ${b.vtrText}\n`;
+        texto += `🔹 *Policiais:* ${b.policiais.join(' / ')}\n`;
+        texto += `🔹 *Horário:* ${b.horario}\n`;
+        texto += `🔹 *Local:* ${b.local}\n\n`;
+      });
 
-    <label>Local</label>
-    <select id="loc1" onchange="toggleManual('loc1','loc1Manual')">
-        <option value="P19">P19</option>
-        <option value="Área Central / Pontes">Área Central / Pontes</option>
-        <option value="Evento / Apoio P19">Evento / Apoio P19</option>
-        <option value="Futebol">Futebol</option>
-        <option value="MANUAL">Inserir manualmente</option>
-    </select>
-    <input type="text" id="loc1Manual" style="display:none">
+      texto += `Bom serviço a todos! 👮‍♂️⚡`;
 
-    <hr>
+      const box = document.getElementById('resultado');
+      box.textContent = texto;
+      box.style.display = 'block';
+      box.scrollIntoView({behavior:'smooth',block:'center'});
+    }
 
-    <!-- BLOCO 2 -->
-    <label>Viatura</label>
-    <div class="viatura-input">
-        <span>PM-</span>
-        <input type="text" id="vtr2" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
-    </div>
+    function copiar(){
+      const box = document.getElementById('resultado');
+      const texto = box.textContent || '';
+      if(!texto){ alert('Gere o texto antes de copiar.'); return; }
+      navigator.clipboard.writeText(texto).then(()=>{
+        const btn = document.getElementById('btnCopy');
+        const prev = btn.textContent;
+        btn.textContent = '✅ COPIADO';
+        setTimeout(() => btn.textContent = prev, 1400);
+      });
+    }
 
-    <label>Policiais</label>
-    <div class="row">
-        <select id="grad2_1">
-            <option value="Sd PM">Soldado</option>
-            <option value="Cb PM">Cabo</option>
-            <option value="3º Sgt PM">3º Sargento</option>
-            <option value="2º Sgt PM">2º Sargento</option>
-            <option value="1º Sgt PM">1º Sargento</option>
-            <option value="Sub-Ten PM">Sub-Tenente</option>
-        </select>
-        <input type="text" id="nome2_1" placeholder="Nome" oninput="formatarNome(this)">
-    </div>
-
-    <div class="row">
-        <select id="grad2_2">
-            <option value="Sd PM">Soldado</option>
-            <option value="Cb PM">Cabo</option>
-            <option value="3º Sgt PM">3º Sargento</option>
-            <option value="2º Sgt PM">2º Sargento</option>
-            <option value="1º Sgt PM">1º Sargento</option>
-            <option value="Sub-Ten PM">Sub-Tenente</option>
-        </select>
-        <input type="text" id="nome2_2" placeholder="Nome" oninput="formatarNome(this)">
-    </div>
-
-    <div class="row">
-        <select id="grad2_3">
-            <option value="Sd PM">Soldado</option>
-            <option value="Cb PM">Cabo</option>
-            <option value="3º Sgt PM">3º Sargento</option>
-            <option value="2º Sgt PM">2º Sargento</option>
-            <option value="1º Sgt PM">1º Sargento</option>
-            <option value="Sub-Ten PM">Sub-Tenente</option>
-        </select>
-        <input type="text" id="nome2_3" placeholder="Nome" oninput="formatarNome(this)">
-    </div>
-
-    <label>Horário</label>
-    <select id="hor2" onchange="toggleManual('hor2','hor2Manual')">
-        <option value="07h às 07h">07h às 07h (24h)</option>
-        <option value="07h às 19h">07h às 19h</option>
-        <option value="13h às 01h">13h às 01h</option>
-        <option value="MANUAL">Inserir manualmente</option>
-    </select>
-    <input type="text" id="hor2Manual" style="display:none">
-
-    <label>Local</label>
-    <select id="loc2" onchange="toggleManual('loc2','loc2Manual')">
-        <option value="P19">P19</option>
-        <option value="Área Central / Pontes">Área Central / Pontes</option>
-        <option value="Evento / Apoio P19">Evento / Apoio P19</option>
-        <option value="Futebol">Futebol</option>
-        <option value="MANUAL">Inserir manualmente</option>
-    </select>
-    <input type="text" id="loc2Manual" style="display:none">
-
-    <hr>
-
-    <!-- BLOCO 3 -->
-    <label>Viatura</label>
-    <div class="viatura-input">
-        <span>PM-</span>
-        <input type="text" id="vtr3" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
-    </div>
-
-    <label>Policiais</label>
-    <div class="row">
-        <select id="grad3_1">
-            <option value="Sd PM">Soldado</option>
-            <option value="Cb PM">Cabo</option>
-            <option value="3º Sgt PM">3º Sargento</option>
-            <option value="2º Sgt PM">2º Sargento</option>
-            <option value="1º Sgt PM">1º Sargento</option>
-            <option value="Sub-Ten PM">Sub-Tenente</option>
-        </select>
-        <input type="text" id="nome3_1" placeholder="Nome" oninput="formatarNome(this)">
-    </div>
-
-    <div class="row">
-        <select id="grad3_2">
-            <option value="Sd PM">Soldado</option>
-            <option value="Cb PM">Cabo</option>
-            <option value="3º Sgt PM">3º Sargento</option>
-            <option value="2º Sgt PM">2º Sargento</option>
-            <option value="1º Sgt PM">1º Sargento</option>
-            <option value="Sub-Ten PM">Sub-Tenente</option>
-        </select>
-        <input type="text" id="nome3_2" placeholder="Nome" oninput="formatarNome(this)">
-    </div>
-
-    <div class="row">
-        <select id="grad3_3">
-            <option value="Sd PM">Soldado</option>
-            <option value="Cb PM">Cabo</option>
-            <option value="3º Sgt PM">3º Sargento</option>
-            <option value="2º Sgt PM">2º Sargento</option>
-            <option value="1º Sgt PM">1º Sargento</option>
-            <option value="Sub-Ten PM">Sub-Tenente</option>
-        </select>
-        <input type="text" id="nome3_3" placeholder="Nome" oninput="formatarNome(this)">
-    </div>
-
-    <label>Horário</label>
-    <select id="hor3" onchange="toggleManual('hor3','hor3Manual')">
-        <option value="07h às 07h">07h às 07h (24h)</option>
-        <option value="07h às 19h">07h às 19h</option>
-        <option value="13h às 01h">13h às 01h</option>
-        <option value="MANUAL">Inserir manualmente</option>
-    </select>
-    <input type="text" id="hor3Manual" style="display:none">
-
-    <label>Local</label>
-    <select id="loc3" onchange="toggleManual('loc3','loc3Manual')">
-        <option value="P19">P19</option>
-        <option value="Área Central / Pontes">Área Central / Pontes</option>
-        <option value="Evento / Apoio P19">Evento / Apoio P19</option>
-        <option value="Futebol">Futebol</option>
-        <option value="MANUAL">Inserir manualmente</option>
-    </select>
-    <input type="text" id="loc3Manual" style="display:none">
-
-    <button onclick="gerar()">⚡ GERAR TEXTO</button>
-
-    <div id="resultado-container">
-        <div id="resultado"></div>
-        <button class="btn-copy" onclick="copiar()">📋 COPIAR TEXTO</button>
-        <button class="btn-whats" onclick="whatsapp()">📲 ENVIAR PELO WHATSAPP</button>
-    </div>
-
-</div>
-
-<script>
-function gerar() {
-    const hora = new Date().getHours();
-    let saudacao = "🌙 Boa noite";
-    if (hora >= 5 && hora < 12) saudacao = "☀️ Bom dia";
-    else if (hora >= 12 && hora < 18) saudacao = "🌤️ Boa tarde";
-
-    const mesa = `${document.getElementById("gradMesa").value} ${document.getElementById("nomeMesa").value}`;
-
-    function dadosBloco(n) {
-        let vtr = document.getElementById(`vtr${n}`).value;
-        if (vtr) vtr = `PM-${vtr}`;
-
-        let hor = document.getElementById(`hor${n}`).value;
-        if (hor === "MANUAL") hor = document.getElementById(`hor${n}Manual`).value;
-
-        let loc = document.getElementById(`loc${n}`).value;
-        if (loc === "MANUAL") loc = document.getElementById(`loc${n}Manual`).value;
-
-        const policiais = coletarPol
+    function whatsapp(){
+      const box = document.getElementById('resultado');
+      const texto = box.textContent || '';
+      if(!texto){ alert('Gere o texto antes de enviar.'); return; }
+      const url = 'https://wa.me/?text=' + encodeURIComponent(texto);
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
